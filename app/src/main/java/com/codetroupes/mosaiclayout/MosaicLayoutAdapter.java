@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MosaicLayoutAdapter extends ArrayAdapter<Object> {
 	private Context context;
-	private List<Image> values;
+	private List<Image> mValues;
 
 	public MosaicLayoutAdapter(Context context) {
 		super(context, R.layout.row_item);
@@ -22,12 +22,16 @@ public class MosaicLayoutAdapter extends ArrayAdapter<Object> {
 	}
 
 	public void setData(List<Image> values) {
-		this.values = values;
+		if(mValues == null) {
+			mValues = values;
+		}else{
+			mValues.addAll(values);
+		}
 	}
 
 	@Override
 	public int getCount() {
-		return values.size();
+		return mValues.size();
 	}
 
 	@Override
@@ -38,7 +42,7 @@ public class MosaicLayoutAdapter extends ArrayAdapter<Object> {
 		View rowView = inflater.inflate(R.layout.row_item, parent, false);
 		GlideImageView image = rowView.findViewById(R.id.image);
 //		Picasso.with(context).load(values.get(position).getTbUrl()).into(image);
-		image.load(values.get(position).getTbUrl());
+		image.load(mValues.get(position).getTbUrl());
 		return rowView;
 
 	}

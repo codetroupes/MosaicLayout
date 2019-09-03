@@ -11,13 +11,14 @@ import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
 
+import androidx.core.widget.NestedScrollView;
+
 import com.codetroupes.mosaiclayout.lib.listeners.OnItemClickListener;
 import com.codetroupes.mosaiclayout.lib.listeners.OnItemLongClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class MosaicLayout extends ScrollView {
+public class MosaicLayout extends NestedScrollView {
 
 	private ArrayList<Cell> cells = new ArrayList<Cell>();
 
@@ -53,24 +54,23 @@ public class MosaicLayout extends ScrollView {
 
 	/**
 	 * @param context: the context where the layout works in
-	 * 
+	 *
 	 * @description Constructor that pass an object of the context
 	 */
 	public MosaicLayout(Context context) {
 		super(context);
 		this.mContext = context;
-		if (frameLayout == null) {
+		if (frameLayout == null)
+
 			frameLayout = new FrameLayout(mContext);
-		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context)");
 	}
 
 	public MosaicLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
-		if (frameLayout == null) {
+		if (frameLayout == null)
 			frameLayout = new FrameLayout(mContext);
-		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context, AttributeSet attrs)");
 
 	}
@@ -78,16 +78,16 @@ public class MosaicLayout extends ScrollView {
 	public MosaicLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		this.mContext = context;
-		if (frameLayout == null) {
+		if (frameLayout == null)
+
 			frameLayout = new FrameLayout(mContext);
-		}
 		Log.d("MosaicLayout", "MosaicLayout(Context context, AttributeSet attrs, int defStyle)");
 
 	}
 
 	/**
 	 * @param adapter: the adapter the binds the data to the layout
-	 * 
+	 *
 	 * @description this function set the adapter for the layout and start
 	 *              showing data according to it.
 	 * */
@@ -100,9 +100,9 @@ public class MosaicLayout extends ScrollView {
 	/**
 	 * @param x: the x coordinate on the screen
 	 * @param y: the y coordinate on the screen
-	 * 
+	 *
 	 * @return the cell object
-	 * 
+	 *
 	 * @description this function takes the x and y coordinates and find the
 	 *              cell where these coordinate exists
 	 * */
@@ -115,7 +115,7 @@ public class MosaicLayout extends ScrollView {
 
 	/**
 	 * @return the size of the data
-	 * 
+	 *
 	 * @description this function returns the size of the data
 	 * */
 	public int getCount() {
@@ -127,9 +127,9 @@ public class MosaicLayout extends ScrollView {
 	 * @param y1: the y coordinate of the first point
 	 * @param x2: the x coordinate of the second point
 	 * @param y2: the y coordinate of the second point
-	 * 
+	 *
 	 * @return the distance
-	 * 
+	 *
 	 * @description the distance value between two points
 	 * */
 	/*
@@ -139,7 +139,7 @@ public class MosaicLayout extends ScrollView {
 
 	/**
 	 * @param context: the context where the blocks are shown
-	 * 
+	 *
 	 * @description this function binds the data in already defined block
 	 *              pattern,
 	 * */
@@ -157,10 +157,10 @@ public class MosaicLayout extends ScrollView {
 	 * This function creates the wire frame for the blocks, where divide the
 	 * screen into cells (smallest unit), where each block can occupy one or
 	 * more cell.
-	 * 
+	 *
 	 * @param context
 	 *            context where the layout binds
-	 * 
+	 *
 	 * */
 	private void calculateAllCells(Context context) {
 
@@ -197,9 +197,8 @@ public class MosaicLayout extends ScrollView {
 		postion = 0;
 		resetPatterns();
 		// Clear the adapter
-		if (mAdapter != null) {
+		if (mAdapter != null)
 			mAdapter.clear();
-		}
 	}
 
 	public void chooseRandomPattern(boolean isRandom) {
@@ -247,8 +246,8 @@ public class MosaicLayout extends ScrollView {
 			CellView cv = new CellView(cx);
 			View view = mAdapter.getView(postion, null, frameLayout);
 			cv.addView(view);
-			
-			FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) blocks.get(i).width, (int) blocks.get(i).height);
+
+			LayoutParams params = new LayoutParams((int) blocks.get(i).width, (int) blocks.get(i).height);
 			params.setMargins((int) blocks.get(i).x1, (int) blocks.get(i).y1 + (int) blocks.get(i).getHeightShift(maxHeights), 0, 0);
 
 			frameLayout.addView(cv, params);
@@ -257,9 +256,8 @@ public class MosaicLayout extends ScrollView {
 			view.setTag(postion);
 			setViewListeners(view);
 
-			if (postion >= mAdapter.getCount()) {
+			if (postion >= mAdapter.getCount())
 				return;
-			}
 
 			// Get the max height that the cells of the box occupy
 			for (int j = 0; j < blocks.get(i).cells.size(); j++) {
@@ -267,9 +265,8 @@ public class MosaicLayout extends ScrollView {
 			}
 
 		}
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++)
 			maxHeights[i] += maxHeightsLocal[i];
-		}
 
 		cells.clear();
 	}
@@ -279,17 +276,16 @@ public class MosaicLayout extends ScrollView {
 	}
 
 	private ArrayList<ArrayList<Integer>> getDisplayPattern() {
-		if (patternsList.size() == 0) {
+		if (patternsList.size() == 0)
 			pattern = mBlockPattern.getPatternRandomly(getRemainingCount());
-		} else {
-			if (isRandomPattern) {
+		else {
+			if (isRandomPattern)
 				pattern = mBlockPattern.getPattern(patternsList, true, -1);
-			}else {
+			else {
 				pattern = mBlockPattern.getPattern(patternsList, false, mSeqPatternId);
 				mSeqPatternId++;
-				if (mSeqPatternId == patternsList.size()) {
+				if (mSeqPatternId == patternsList.size())
 					mSeqPatternId = 0;
-				}
 			}
 		}
 		return pattern;
@@ -300,18 +296,16 @@ public class MosaicLayout extends ScrollView {
 
 			@Override
 			public void onClick(View v) {
-				if (mOnItemClickListener != null) {
+				if (mOnItemClickListener != null)
 					mOnItemClickListener.onClick(Integer.parseInt(v.getTag().toString()) - 1);
-				}
 			}
 		});
 		view.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
 			public boolean onLongClick(View v) {
-				if (mOnItemLongClickListener != null) {
+				if (mOnItemLongClickListener != null)
 					mOnItemLongClickListener.onLongClick(Integer.parseInt(v.getTag().toString()) - 1);
-				}
 				return true;
 			}
 		});

@@ -20,25 +20,16 @@ public class MainActivity extends AppCompatActivity {
     private MosaicLayout mMosaicLayout;
     private MosaicLayoutAdapter mAdapater;
 
+
+
     BlockPattern.BLOCK_PATTERN pattern1[] = {
-            BlockPattern.BLOCK_PATTERN.SMALL,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.SMALL,
-            BlockPattern.BLOCK_PATTERN.SMALL,
-            BlockPattern.BLOCK_PATTERN.SMALL,
-            BlockPattern.BLOCK_PATTERN.HORIZONTAL,
-            BlockPattern.BLOCK_PATTERN.VERTICAL,
-            BlockPattern.BLOCK_PATTERN.VERTICAL };
+            BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL,
+            BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL };
 
     BlockPattern.BLOCK_PATTERN pattern2[] = {
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG,
-            BlockPattern.BLOCK_PATTERN.BIG };
+            BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL,
+            BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL, BlockPattern.BLOCK_PATTERN.VERTICAL };
+
 
 
     @Override
@@ -46,16 +37,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mMosaicLayout = (MosaicLayout) findViewById(R.id.mosaic_layout);
+
+        // Choose a pattern randomly from the set of pattern specified
         mMosaicLayout.chooseRandomPattern(false);
-
         mMosaicLayout.setOnItemClickListener(new OnItemClickListener() {
-
             @Override
             public void onClick(int position) {
                 Toast.makeText(getApplicationContext(), "pos " + position, Toast.LENGTH_LONG).show();
             }
         });
-
         randomAllPatters();
         // Download images for
         downloadImages();
@@ -68,46 +58,79 @@ public class MainActivity extends AppCompatActivity {
         // add the results 2 times to increase the size of the results
 
         List<Image> values = new ArrayList<>();
-        for (int i =0;i<30;i++){
+//        for (int i =1;i<52;i++){
+//            Image image = new Image();
+//            image.setTbUrl("https://pic.ilemiss.net/298/"+i+".jpg");
+//            values.add(image);
+//        }
+//        for (int i =1;i<45;i++){
+//            Image image = new Image();
+//            image.setTbUrl("https://pic.ilemiss.net/1159/"+i+".jpg");
+//            values.add(image);
+//        }
+//        for (int i =1;i<42;i++){
+//            Image image = new Image();
+//            image.setTbUrl("https://pic.ilemiss.net/1589/"+i+".jpg");
+//            values.add(image);
+//        }
+        for (int i =1;i<18;i++){
             Image image = new Image();
-            if(i%2==0){
-                image.setTbUrl("https://hbimg.huabanimg.com/611acfd42f4b175c280853e0b427cf1ff8f12f873a1d2-ejFBym_fw658");
-            }else{
-                image.setTbUrl("https://hbimg.huabanimg.com/683ffbbb3b7b407f7779ca37cf338f1f13d028062f14d9-2pUG2V_fw658");
-            }
+            image.setTbUrl("https://pic.ilemiss.net/1560/"+i+".jpg");
             values.add(image);
         }
-
+//        for (int i =1;i<22;i++){
+//            Image image = new Image();
+//            image.setTbUrl("https://pic.ilemiss.net/3064/"+i+".jpg");
+//            values.add(image);
+//        }
         mAdapater.setData(values);
         // Set the adapter to the layout
         mMosaicLayout.setAdapter(mAdapater);
     }
 
-
-    private void randomSelectedPatterns() {
+    private void addImages2() {
         mMosaicLayout.reset();
-        mMosaicLayout.addPattern(pattern1);
-//        mMosaicLayout.addPattern(pattern2);
-        mMosaicLayout.chooseRandomPattern(true);
+        List<Image> values = new ArrayList<>();
+        for (int i =1;i<22;i++){
+            Image image = new Image();
+            image.setTbUrl("https://pic.ilemiss.net/3064/"+i+".jpg");
+            values.add(image);
+        }
+        mAdapater.setData(values);
+        mMosaicLayout.setAdapter(mAdapater);
+    }
 
+    private void addImages3() {
+        mMosaicLayout.reset();
+        List<Image> values = new ArrayList<>();
+        for (int i =1;i<44;i++){
+            Image image = new Image();
+            image.setTbUrl("https://pic.ilemiss.net/1168/"+i+".jpg");
+            values.add(image);
+        }
+        mAdapater.setData(values);
+        mMosaicLayout.setAdapter(mAdapater);
     }
 
 
     private void randomAllPatters() {
-        mMosaicLayout.reset();
         mMosaicLayout.chooseRandomPattern(true);
+
     }
 
+    private void randomSelectedPatterns() {
+        mMosaicLayout.addPattern(pattern1);
+        mMosaicLayout.addPattern(pattern2);
+        mMosaicLayout.chooseRandomPattern(true);
 
+    }
 
     private void orderedSelectedPatterns() {
-        mMosaicLayout.reset();
         mMosaicLayout.addPattern(pattern1);
-//        mMosaicLayout.addPattern(pattern2);
+        mMosaicLayout.addPattern(pattern2);
         mMosaicLayout.chooseRandomPattern(false);
 
     }
-
 
 
     @Override
@@ -123,12 +146,16 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action1:
                 randomAllPatters();
+                break;
             case R.id.action2:
                 randomSelectedPatterns();
+                break;
             case R.id.action3:
                 orderedSelectedPatterns();
+                break;
             default:
                 randomAllPatters();
+                break;
         }
         downloadImages();
         return true;

@@ -21,9 +21,8 @@ public class BlockPattern {
 	public BlockPattern() {
 
 		// Initialize the board pattern
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 8; i++)
 			board[i] = BLOCK_PATTERN.EMPTY;
-		}
 	}
 
 	public ArrayList<ArrayList<Integer>> getPatternRandomly(int remainingCount) {
@@ -50,10 +49,10 @@ public class BlockPattern {
 	}
 
 	public ArrayList<ArrayList<Integer>> getPattern(List<BLOCK_PATTERN[]> board, boolean isRandom, int lastSelectIndex) {
-		if (board.size() == 1) {
+		if (board.size() == 1)
 			// Get the only exits pattern
 			return parse(board.get(0));
-		}else if (board.size() > 0) {
+		else if (board.size() > 0) {
 
 			// Randomly select a pattern from a specified list of patterns
 			if (isRandom) {
@@ -65,25 +64,24 @@ public class BlockPattern {
 			else {
 				return parse(board.get(lastSelectIndex));
 			}
-		} else {
+		} else
 			return null;
-		}
 	}
 
 	private boolean isPossible(BLOCK_PATTERN pattern, int spot, BLOCK_PATTERN[] board) {
 
 		switch (pattern) {
-		case SMALL:
-			return board[spot].equals(BLOCK_PATTERN.EMPTY);
-		case BIG:
-			return spot < 3 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 1].equals(BLOCK_PATTERN.EMPTY)
-					&& board[spot + 4].equals(BLOCK_PATTERN.EMPTY) && board[spot + 5].equals(BLOCK_PATTERN.EMPTY);
-		case VERTICAL:
-			return spot < 4 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 4].equals(BLOCK_PATTERN.EMPTY);
-		case HORIZONTAL:
-			return spot % 4 < 3 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 1].equals(BLOCK_PATTERN.EMPTY);
-		default:
-			return false;
+			case SMALL:
+				return board[spot].equals(BLOCK_PATTERN.EMPTY);
+			case BIG:
+				return spot < 3 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 1].equals(BLOCK_PATTERN.EMPTY)
+						&& board[spot + 4].equals(BLOCK_PATTERN.EMPTY) && board[spot + 5].equals(BLOCK_PATTERN.EMPTY);
+			case VERTICAL:
+				return spot < 4 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 4].equals(BLOCK_PATTERN.EMPTY);
+			case HORIZONTAL:
+				return spot % 4 < 3 && board[spot].equals(BLOCK_PATTERN.EMPTY) && board[spot + 1].equals(BLOCK_PATTERN.EMPTY);
+			default:
+				return false;
 
 		}
 	}
@@ -99,24 +97,22 @@ public class BlockPattern {
 		board = Arrays.copyOf(board2, board2.length);
 
 		switch (pattern) {
-		case SMALL:
-			board[spot] = BLOCK_PATTERN.SMALL;
-			break;
-		case BIG:
-			board[spot] = BLOCK_PATTERN.BIG;
-			board[spot + 1] = BLOCK_PATTERN.BIG;
-			board[spot + 4] = BLOCK_PATTERN.BIG;
-			board[spot + 5] = BLOCK_PATTERN.BIG;
-			break;
-		case VERTICAL:
-			board[spot] = board[spot + 4] = BLOCK_PATTERN.VERTICAL;
-			break;
-		case HORIZONTAL:
-			board[spot] = board[spot + 1] = BLOCK_PATTERN.HORIZONTAL;
-			break;
-		case EMPTY:
-		default:
-			break;
+			case SMALL:
+				board[spot] = BLOCK_PATTERN.SMALL;
+				break;
+			case BIG:
+				board[spot] = BLOCK_PATTERN.BIG;
+				board[spot + 1] = BLOCK_PATTERN.BIG;
+				board[spot + 4] = BLOCK_PATTERN.BIG;
+				board[spot + 5] = BLOCK_PATTERN.BIG;
+				break;
+			case VERTICAL:
+				board[spot] = board[spot + 4] = BLOCK_PATTERN.VERTICAL;
+				break;
+			case HORIZONTAL:
+				board[spot] = board[spot + 1] = BLOCK_PATTERN.HORIZONTAL;
+				break;
+			case EMPTY:
 		}
 		return board;
 	}
@@ -179,44 +175,44 @@ public class BlockPattern {
 		for (int i = 0; i < board.length; i++) {
 			if (!occupy[i]) {
 				switch (board[i]) {
-				case SMALL:
-					cell = new ArrayList<Integer>();
-					cell.add(i);
-					boxes.add(cell);
-					occupy[i] = true;
-					break;
-				case BIG:
-					cell = new ArrayList<Integer>();
-					occupy[i] = true;
-					occupy[i + 1] = true;
-					occupy[i + 4] = true;
-					occupy[i + 5] = true;
-					cell.add(i);
-					cell.add(i + 1);
-					cell.add(i + 4);
-					cell.add(i + 5);
-					boxes.add(cell);
-					break;
-				case VERTICAL:
-					cell = new ArrayList<Integer>();
-					occupy[i] = true;
-					occupy[i + 4] = true;
-					cell.add(i);
-					cell.add(i + 4);
-					boxes.add(cell);
-					break;
-				case HORIZONTAL:
-					cell = new ArrayList<Integer>();
-					occupy[i] = true;
-					occupy[i + 1] = true;
-					cell.add(i);
-					cell.add(i + 1);
-					boxes.add(cell);
-					break;
-				case EMPTY:
-					break;
-				default:
-					break;
+					case SMALL:
+						cell = new ArrayList<Integer>();
+						cell.add(i);
+						boxes.add(cell);
+						occupy[i] = true;
+						break;
+					case BIG:
+						cell = new ArrayList<Integer>();
+						occupy[i] = true;
+						occupy[i + 1] = true;
+						occupy[i + 4] = true;
+						occupy[i + 5] = true;
+						cell.add(i);
+						cell.add(i + 1);
+						cell.add(i + 4);
+						cell.add(i + 5);
+						boxes.add(cell);
+						break;
+					case VERTICAL:
+						cell = new ArrayList<Integer>();
+						occupy[i] = true;
+						occupy[i + 4] = true;
+						cell.add(i);
+						cell.add(i + 4);
+						boxes.add(cell);
+						break;
+					case HORIZONTAL:
+						cell = new ArrayList<Integer>();
+						occupy[i] = true;
+						occupy[i + 1] = true;
+						cell.add(i);
+						cell.add(i + 1);
+						boxes.add(cell);
+						break;
+					case EMPTY:
+						break;
+					default:
+						break;
 				}
 			}
 		}
@@ -232,21 +228,17 @@ public class BlockPattern {
 		double minY = Integer.MAX_VALUE;
 
 		for (int i = 0; i < cells.size(); i++) {
-			if (cells.get(i).x1 < minX) {
+			if (cells.get(i).x1 < minX)
 				minX = cells.get(i).x1;
-			}
 
-			if (cells.get(i).y1 < minY) {
+			if (cells.get(i).y1 < minY)
 				minY = cells.get(i).y1;
-			}
 
-			if (cells.get(i).x2 > maxX) {
+			if (cells.get(i).x2 > maxX)
 				maxX = cells.get(i).x2;
-			}
 
-			if (cells.get(i).y2 > maxY) {
+			if (cells.get(i).y2 > maxY)
 				maxY = cells.get(i).y2;
-			}
 		}
 
 		Block block = new Block();
